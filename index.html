@@ -8,7 +8,9 @@
 </head>
  
 <body>
-    <a-scene>
+    <a-scene vr-analytics renderer="colorManagement: true">
+        
+        <a-entity id="acamera" camera></a-entity>
         
         <a-entity id="ctlL" laser-controls="hand: left"></a-entity>
         <a-entity id="ctlR" laser-controls="hand: right"></a-entity>
