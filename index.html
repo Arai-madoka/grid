@@ -9,7 +9,7 @@
 <script type="module">
     import * as THREE from'https://unpkg.com/three@0.126.1/build/three.module.js';
     import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
-    import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
+    import { VRButton } from 'https://unpkg.com/three@0.126.1/examples/jsm/webxr/VRButton.js';
     
     let camera,scene,renderer;
     let dirLight;
@@ -21,7 +21,7 @@
  
         //シーンの作成
         scene = new THREE.Scene();
-        scene.background = new THREE.Color( 0xffffff );
+        scene.background = new THREE.Color( 0x222222 );
         //カメラの作成
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         //カメラセット
@@ -33,12 +33,11 @@
             dirLight.position.set(-30, 40, 30);
             scene.add(dirLight);
  
-        
         //レンダラー
         renderer = new THREE.WebGLRenderer();
-        
-        //renderer.setClearColor(new THREE.Color(0x000000));
         renderer.setSize(window.innerWidth, window.innerHeight);  
+        renderer.xr.enabled = true; // レンダラーのXRを有効化
+        document.body.appendChild(renderer.domElement);
         
         // 滑らかにカメラコントローラーを制御する
         const controls = new OrbitControls(camera, document.body);
@@ -115,12 +114,13 @@
         gridHelper12.position.z = 5;
         scene.add( gridHelper12 )
  
-        document.getElementById("WebGL-output").appendChild(renderer.domElement);
+        document.body.appendChild(VRButton.createButton(renderer));
+        //document.getElementById("WebGL-output").appendChild(renderer.domElement);
     }
     function animate() {
-        requestAnimationFrame(animate);
         renderer.render(scene, camera);
     }
+    renderer.setAnimationLoop(animate);
 </script>
  
 </body>
