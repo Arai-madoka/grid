@@ -1,8 +1,6 @@
 import * as THREE from'https://unpkg.com/three@0.126.1/build/three.module.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
  
-    let camera;
-    let scene;
     let renderer;
     let dirLight;
     let gridHelper;
@@ -12,15 +10,6 @@ import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/cont
     animate();
  
     function init() {
-
-        scene = new THREE.Scene();
-
-        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-        camera.position.set(20, 30, 50);
-        camera.lookAt(new THREE.Vector3(0, 0, 0));
- 
-    
         dirLight = new THREE.SpotLight(0xffffff,1.5);//color,強度
             dirLight.position.set(-30, 40, 30);
             scene.add(dirLight);
@@ -35,7 +24,7 @@ import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/cont
         controls.dampingFactor = 0.2;
  
         // gridHelper 
-        gridHelper = new THREE.GridHelper(10,5) //大きさ・分割数・センタラインcolor・マスカラ―
+        gridHelper = new THREE.GridHelper(10,5) 
         scene.add(gridHelper);
 
         var gridHelper2 = new THREE.GridHelper(10, 5);
@@ -111,5 +100,5 @@ import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/cont
     }
     function animate() {
         requestAnimationFrame(animate);
-        renderer.render(scene, camera);
+        
     }
