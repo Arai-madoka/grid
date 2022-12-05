@@ -10,13 +10,9 @@
 import * as THREE from'https://unpkg.com/three@0.126.1/build/three.module.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
  
-    let camera;
-    let scene;
-    let renderer;
+    let camera,scene,renderer;
     let dirLight;
     let gridHelper;
-    let axisHelper;
- 
     init();
     animate();
  
@@ -117,10 +113,6 @@ import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/cont
         gridHelper12.position.y = 5;
         gridHelper12.position.z = 5;
         scene.add( gridHelper12 )
-        
-        // axisHelper
-        axisHelper = new THREE.AxisHelper(20);  // 軸のサイズ
-        scene.add(axisHelper);
  
         document.getElementById("WebGL-output").appendChild(renderer.domElement);
     }
