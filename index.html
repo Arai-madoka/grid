@@ -34,7 +34,8 @@
             scene.add(dirLight);
  
         //レンダラー
-        renderer = new THREE.WebGLRenderer();
+        renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize(window.innerWidth, window.innerHeight);  
         renderer.xr.enabled = true; // レンダラーのXRを有効化
         document.body.appendChild(renderer.domElement);
