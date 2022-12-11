@@ -13,7 +13,6 @@
     
     let camera,scene,renderer;
     let dirLight;
-    let gridHelper;
     init();
     animate();
  
@@ -30,8 +29,8 @@
  
         //光源
         dirLight = new THREE.SpotLight(0xffffff,1.5);//color,強度
-            dirLight.position.set(-30, 40, 30);
-            scene.add(dirLight);
+        dirLight.position.set(-30, 40, 30);
+        scene.add(dirLight);
  
         //レンダラー
         renderer = new THREE.WebGLRenderer({antialias:true});
@@ -46,7 +45,7 @@
         controls.dampingFactor = 0.2;
  
         // gridHelper 
-        gridHelper = new THREE.GridHelper(10,5) //大きさ・分割数・センタラインcolor・マスカラ―
+        var gridHelper = new THREE.GridHelper(10,5) //大きさ・分割数・センタラインcolor・マスカラ―
         scene.add(gridHelper);
 
         var gridHelper2 = new THREE.GridHelper(10, 5);
@@ -125,3 +124,4 @@
 </script>
  
 </body>
+    </html>
