@@ -10,9 +10,15 @@
     import * as THREE from'https://unpkg.com/three@0.126.1/build/three.module.js';
     import { OrbitControls } from 'https://unpkg.com/three@0.126.1/examples/jsm/controls/OrbitControls.js';
     import { VRButton } from 'https://unpkg.com/three@0.126.1/examples/jsm/webxr/VRButton.js';
+    import { GUI } from 'https://unpkg.com/three@0.147.0/examples/jsm/libs/lil-gui.module.min.js';
     
     let camera,scene,renderer;
     let dirLight;
+    let group;
+    const params = {
+		size:1.0,
+		visible: true
+	};
     init();
     animate();
  
@@ -45,75 +51,40 @@
         controls.dampingFactor = 0.2;
  
         // gridHelper 
-        var gridHelper = new THREE.GridHelper(10,5) //大きさ・分割数・センタラインcolor・マスカラ―
-        scene.add(gridHelper);
+        group = new THREE.Group();
+	    scene.add( group );
 
-        var gridHelper2 = new THREE.GridHelper(10, 5);
-        gridHelper2.rotation.x = 0;
-        gridHelper2.position.y = 2;
-        gridHelper2.position.z = 0;
-        scene.add( gridHelper2 );
-
-        var gridHelper3 = new THREE.GridHelper(10, 5);
-        gridHelper3.rotation.x = 0;
-        gridHelper3.position.y = 4;
-        gridHelper3.position.z = 0;
-        scene.add( gridHelper3 )
-
-        var gridHelper4 = new THREE.GridHelper(10, 5);
-        gridHelper4.rotation.x = 0;
-        gridHelper4.position.y = 6;
-        gridHelper4.position.z = 0;
-        scene.add( gridHelper4 )
-        
-        var gridHelper5 = new THREE.GridHelper(10, 5);
-        gridHelper5.rotation.x = 0;
-        gridHelper5.position.y = 8;
-        gridHelper5.position.z = 0;
-        scene.add( gridHelper5 )
-
-        var gridHelper6 = new THREE.GridHelper(10, 5);
-        gridHelper6.rotation.x = 0;
-        gridHelper6.position.y = 10;
-        gridHelper6.position.z = 0;
-        scene.add( gridHelper6 )
- 
-        var gridHelper7 = new THREE.GridHelper(10, 5);
-        gridHelper7.rotation.x = Math.PI/2;
-        gridHelper7.position.y = 5;
-        gridHelper7.position.z = -5;
-        scene.add( gridHelper7 )
-        
-        var gridHelper8 = new THREE.GridHelper(10, 5);
-        gridHelper8.rotation.x = Math.PI/2;
-        gridHelper8.position.y = 5;
-        gridHelper8.position.z = -3;
-        scene.add( gridHelper8 )
-
-        var gridHelper9 = new THREE.GridHelper(10, 5);
-        gridHelper9.rotation.x = Math.PI/2;
-        gridHelper9.position.y = 5;
-        gridHelper9.position.z = -1;
-        scene.add( gridHelper9 )
-
-        var gridHelper10 = new THREE.GridHelper(10, 5);
-        gridHelper10.rotation.x = Math.PI/2;
-        gridHelper10.position.y = 5;
-        gridHelper10.position.z = 1;
-        scene.add( gridHelper10 )
-
-        var gridHelper11 = new THREE.GridHelper(10, 5);
-        gridHelper11.rotation.x = Math.PI/2;
-        gridHelper11.position.y = 5;
-        gridHelper11.position.z = 3;
-        scene.add( gridHelper11 )
-
-        var gridHelper12 = new THREE.GridHelper(10, 5);
-        gridHelper12.rotation.x = Math.PI/2;
-        gridHelper12.position.y = 5;
-        gridHelper12.position.z = 5;
-        scene.add( gridHelper12 )
- 
+	    let g=new THREE.MeshBasicMaterial({color:0xc0c0c0});
+	    let size=1.0;
+	    let step=5.0;
+	    for(let i=0;i<6;i++){
+            for(let j=1;j<2;j+=0.2){
+                let grid1 =new THREE.GridHelper(size,step,g,g);
+		        grid1.myid=i;
+		        grid1.rotation.x=0;
+		        grid1.position.y=j;
+		        grid1.position.z=0;
+		        group.add(grid1);	
+		        }	
+		    }
+        for(let k=0;k<6;k++){
+	        for(let n=-0.5;n<0.7;n+=0.2){
+		        let grid2 =new THREE.GridHelper(size,step,g,g);
+		        grid2.myid=k;
+		        grid2.rotation.x=Math.PI/2;
+		        grid2.position.y=1.5;
+		        grid2.position.z=n;
+		        group.add(grid2);	
+	        }				
+	    }
+        const gui = new GUI( { width: 300 } );
+	    gui.add( params ,'size' ,0.1,2.0).step(0.1).onChange( function(val){
+		group.size=val;
+	    });
+	    gui.add( params, 'visible' ).onChange( function(visible){
+		    group.visible=visible;
+	    });
+	    gui.open();
         document.body.appendChild(VRButton.createButton(renderer));
         //document.getElementById("WebGL-output").appendChild(renderer.domElement);
     }
